@@ -11,16 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/novaEmpresa")
-public class NovaEmpresaServlet extends HttpServlet {
-	
+@WebServlet("/alteraEmpresa")
+public class AlteraEmpresaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Cadastrando nova empresa");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
+System.out.println("Alterando empresa cadastrada");
+		
+		String paramId = request.getParameter("id");
 		String nomeEmpresa = request.getParameter("nome");
 		String paramDataEmpresa = request.getParameter("data");
+		
+		Integer id = Integer.valueOf(paramId);
 		
 		Date dataAbertura = null;
 		try {
@@ -30,19 +34,12 @@ public class NovaEmpresaServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		Empresa empresa = new Empresa();
+		Banco banco = new Banco();
+		Empresa empresa = banco.buscaEmpresaPelaId(id);
 		empresa.setNome(nomeEmpresa);
 		empresa.setDataAbertura(dataAbertura);
 		
-		Banco banco = new Banco();
-		banco.adiciona(empresa);
-		
 		response.sendRedirect("listaEmpresas");
-		request.setAttribute("empresa", empresa.getNome());
-		
-		//chamar o JSP
-//		RequestDispatcher rd = request.getRequestDispatcher("/listaEmpresas");
-//		request.setAttribute("empresa", empresa.getNome());
-//		rd.forward(request, response);
 	}
+
 }
