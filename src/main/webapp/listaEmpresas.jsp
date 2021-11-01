@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.List, br.com.alura.gerenciador.servlet.Empresa"%>
+<%@ page import="java.util.List,br.com.alura.gerenciador.modelo.Empresa"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:url value="/removeEmpresa" var="linkServletRemoveEmpresa"/>
-<c:url value="/mostraEmpresa" var="linkServletMostraEmpresa"/>
+<c:url value="/entrada" var="linkServletRemoveEmpresa"/>
+<c:url value="/entrada" var="linkServletMostraEmpresa"/>
 
 <!DOCTYPE html>
 <html>
@@ -24,8 +24,8 @@
 			
 				<li>
 					${empresa.nome} <fmt:formatDate value="${empresa.dataAbertura}" pattern="dd/MM/yyyy"/> 
-					<a href="${linkServletMostraEmpresa}?id=${empresa.id}">editar</a>
-					<a href="${linkServletRemoveEmpresa}?id=${empresa.id}">remove</a>
+					<a href="${linkServletMostraEmpresa}?acao=MostraEmpresa&id=${empresa.id}">editar</a>
+					<a href="${linkServletRemoveEmpresa}?acao=RemoveEmpresa&id=${empresa.id}">remove</a>
 				</li>
 			</c:forEach>
 		</ul>
